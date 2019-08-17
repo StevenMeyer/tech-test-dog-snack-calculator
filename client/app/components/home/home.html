@@ -1,9 +1,15 @@
-<navbar></navbar>
-<header>
-  <hero></hero>
-</header>
 <main>
-  <div>
-    <h1>Found in {{ $ctrl.name }}.html</h1>
-  </div>
+  <h1>Dog Snack Calculator</h1>
+  <p>Plan your next walk with snacks included</p>
+  <section>
+    <h2>Routes</h2>
+    <p>Choose a walking route</p>
+    <ol>
+      <li ng-repeat="walk in $ctrl.walks">
+        <a ui-sref="walk({id: walk.id, name: walk.name})">
+          <span>{{walk.name}}</span>
+        </a>
+      </li>
+    </ol>
+  </section>
 </main>

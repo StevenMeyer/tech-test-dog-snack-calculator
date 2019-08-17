@@ -31,8 +31,8 @@ describe('Home', () => {
       });
     });
 
-    it('has a name property', () => { // erase if removing this.name from the controller
-      expect(controller).to.have.property('name');
+    it('has a walks property', () => {
+      expect(controller).to.have.property('walks');
     });
   });
 
@@ -46,9 +46,12 @@ describe('Home', () => {
       scope.$apply();
     });
 
-    it('has name in template', () => {
-      expect(template.find('h1').html()).to.eq('Found in home.html');
+    it('has title in template', () => {
+      expect(template.find('h1').html()).to.eq('Dog Snack Calculator');
     });
 
+    it('has a list of walks', () => {
+      expect(template.find('li').length).to.eq(3);
+    });
   });
 });
