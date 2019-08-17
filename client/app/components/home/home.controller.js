@@ -3,10 +3,10 @@ class HomeController {
     return !this.loaded || this.walks.length > 0;
   }
 
-  constructor(WalkService) {
+  constructor(walkService) {
     this.loaded = false;
     this.walks = [];
-    this.walkService = WalkService;
+    this.walkService = walkService;
   }
 
   $onInit() {

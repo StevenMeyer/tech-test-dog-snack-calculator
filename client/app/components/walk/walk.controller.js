@@ -1,38 +1,18 @@
 class WalkController {
-  constructor($scope) {
+  get hasData() {
+    return this.locations.length > 0;
+  }
+
+  constructor($scope, walkService) {
     // using $scope like this doesn't seem right and given more time I'd figure
     // out the proper way to do this
     // TODO: get these $resolve properties without reaching out of our isolated
     //  scope
     this.id = $scope.$parent.$resolve.id;
     this.name = $scope.$parent.$resolve.name;
-    this.locations = [
-      {
-        altitude: 10,
-        latitude: 51.51973438454002,
-        longitude: -0.1222349703313059
-      },
-      {
-        altitude: 0,
-        latitude: 51.51975093879879,
-        longitude: -0.1222902908922381
-      },
-      {
-        altitude: 6,
-        latitude: 51.51968937371999,
-        longitude: -0.1225241459907242
-      },
-      {
-        altitude: 15,
-        latitude: 51.51955128186523,
-        longitude: -0.1227341126651715
-      },
-      {
-        altitude: 8,
-        latitude: 51.51940237735539,
-        longitude: -0.1229298301042271
-      }
-    ];
+    this.loaded = false;
+    this.walkService = walkService;
+    this.locations = [];
     this.snacks = WalkController.calculateSnacks(this.locations);
   }
 
@@ -51,6 +31,19 @@ class WalkController {
     } else {
       return 0;
     }
+  }
+
+  $onInit() {
+    return this.walkService.get({
+      id: this.id
+    }).$promise.then((result) => {
+      this.name = result.name;
+      this.locations = result.locations;
+      this.snacks = WalkController.calculateSnacks(this.locations);
+      this.loaded = true;
+    }).catch(() => {
+      this.loaded = true;
+    });
   }
 }
 
