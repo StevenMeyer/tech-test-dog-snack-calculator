@@ -1,5 +1,9 @@
 class WalkController {
   constructor($scope) {
+    // using $scope like this doesn't seem right and given more time I'd figure
+    // out the proper way to do this
+    // TODO: get these $resolve properties without reaching out of our isolated
+    //  scope
     this.id = $scope.$parent.$resolve.id;
     this.name = $scope.$parent.$resolve.name;
     this.locations = [

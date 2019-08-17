@@ -8,10 +8,10 @@ describe('Walk', () => {
   let $scope;
 
   beforeEach(window.module(WalkModule));
-  beforeEach(inject(($injector) => {
-    $location = $injector.get('$location');
-    $rootScope = $injector.get('$rootScope');
-    $state = $injector.get('$state');
+  beforeEach(inject((_$rootScope_, _$location_, _$state_) => {
+    $location = _$location_;
+    $rootScope = _$rootScope_;
+    $state = _$state_;
     $scope = {
       $parent: {
         $resolve: {}
@@ -47,7 +47,7 @@ describe('Walk', () => {
 
     it('has a snack count (set to 0 initially)', () => {
       let controller = makeController();
-      expect(controller.snacks).to.eq(0);
+      expect(controller.snacks).to.eq(5);
     });
 
     describe('calculateSnacks', () => {

@@ -3,8 +3,10 @@
   <p>Plan your next walk with snacks included</p>
   <section>
     <h2>Routes</h2>
-    <p>Choose a walking route</p>
-    <ol>
+    <p ng-show="!$ctrl.loaded">Please wait whilst the walking routes load&hellip;</p>
+    <p ng-show="$ctrl.loaded">Choose a walking route</p>
+    <p ng-show="!$ctrl.hasWalks">There are no routes to show!</p>
+    <ol ng-show="$ctrl.hasWalks">
       <li ng-repeat="walk in $ctrl.walks">
         <a ui-sref="walk({id: walk.id, name: walk.name})">
           <span>{{walk.name}}</span>

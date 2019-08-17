@@ -5,7 +5,7 @@ import './home.scss';
 let homeComponent = {
   bindings: {},
   template,
-  controller
+  controller: ['WalkService', controller]
 };
 
 export default homeComponent;
