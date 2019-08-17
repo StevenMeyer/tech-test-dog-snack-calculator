@@ -1,4 +1,4 @@
-<main>
+<main class="home">
   <h1>Dog Snack Calculator</h1>
   <p>Plan your next walk with snacks included</p>
   <section>
@@ -6,9 +6,11 @@
     <p ng-show="!$ctrl.loaded">Please wait whilst the walking routes load&hellip;</p>
     <p ng-show="$ctrl.loaded">Choose a walking route</p>
     <p ng-show="!$ctrl.hasWalks">There are no routes to show!</p>
+    <i class="material-icons explore" aria-hidden="true">explore</i>
     <ol ng-show="$ctrl.hasWalks">
       <li ng-repeat="walk in $ctrl.walks">
         <a ui-sref="walk({id: walk.id, name: walk.name})">
+          <i class="material-icons">directions_walk</i>
           <span>{{walk.name}}</span>
         </a>
       </li>

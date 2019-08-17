@@ -1,12 +1,11 @@
-<main>
+<main class="walk">
   <h1>{{$ctrl.name}}</h1>
   <p ng-show="!$ctrl.loaded">Loading; please wait&hellip;</p>
   <p ng-show="$ctrl.loaded && !$ctrl.hasData">There is no route information</p>
   <p ng-show="$ctrl.loaded && !$ctrl.hasData">Something probably went wrong. Please try again, later</p>
   <section ng-show="$ctrl.hasData">
     <dl>
-      <dt>Number of snacks</dt>
-      <dd>{{$ctrl.snacks}}</dd>
+      <dt>Number of snacks</dt><dd>{{$ctrl.snacks}}</dd>
     </dl>
     <div id="map"></div>
   </section>

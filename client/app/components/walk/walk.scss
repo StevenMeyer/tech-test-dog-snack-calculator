@@ -1,3 +1,36 @@
+@import "../../common/common";
+
 .walk {
-  color: red;
+  background-color: #ffffff;
+  padding: 0 1rem;
+
+  dt, dd {
+    background-color: $heroPrimary;
+    color: $heroPrimaryContrast;
+    display: inline-block;
+    line-height: 3rem;
+    padding: 0 1rem;
+  }
+
+  dt {
+    border-bottom-left-radius: 1rem;
+    border-top-left-radius: 1rem;
+    font-size: 1rem;
+
+    &::before {
+      content: 'pets';
+      font-family: 'Material Icons';
+      font-size: 2rem;
+      padding-right: 1rem;
+      vertical-align: bottom;
+    }
+  }
+
+  dd {
+    border-bottom-right-radius: 1rem;
+    border-top-right-radius: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0;
+  }
 }

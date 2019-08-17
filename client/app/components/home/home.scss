@@ -1,3 +1,51 @@
+@import "../../common/common";
+
 .home {
-  color: red;
+  background-color: $heroBackground;
+  color: $heroPrimary;
+  margin: 0 -2rem;
+  padding: 0 1rem;
+
+  section {
+    position: relative;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  ol {
+    list-style: none;
+    padding: 0;
+  }
+
+  li {
+    a {
+      background-color: $heroSecondary;
+      border-radius: 1rem;
+      color: $heroSecondaryContrast;
+      display: inline-block;
+      font-weight: bold;
+      font-size: 1rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      text-decoration: none;
+    }
+
+    i {
+      vertical-align: bottom;
+    }
+  }
+
+  .explore {
+    display: none;
+    font-size: 10rem;
+    opacity: 0.5;
+    position: absolute;
+    left: 11rem;
+
+    @media(min-width: 375px) {
+      display: inline-block;
+    }
+  }
 }
