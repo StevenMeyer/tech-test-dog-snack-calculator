@@ -2,10 +2,12 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import walkComponent from './walk.component';
 import walkServiceModule from '../../common/walk/walk.service';
+import ngMap from 'ngMap';
 
 let walkModule = angular.module('walk', [
   uiRouter,
-  walkServiceModule
+  walkServiceModule,
+  ngMap
 ])
 
 .config(($stateProvider, $urlRouterProvider) => {

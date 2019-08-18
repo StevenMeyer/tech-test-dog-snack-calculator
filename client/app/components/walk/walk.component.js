@@ -5,7 +5,7 @@ import './walk.scss';
 let walkComponent = {
   bindings: {},
   template,
-  controller: ['$scope', 'WalkService', controller]
+  controller: ['$scope', 'WalkService', 'NgMap', controller]
 };
 
 export default walkComponent;
