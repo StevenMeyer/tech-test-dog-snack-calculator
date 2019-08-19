@@ -1,6 +1,6 @@
 class WalkController {
   get hasData() {
-    return this.locations.length > 0;
+    return this.waypoints.length > 0;
   }
 
   constructor(walkService, NgMap) {
@@ -16,9 +16,10 @@ class WalkController {
     this.loaded = false;
     this.walkService = walkService;
     this.ngMapProvider = NgMap;
-    this.locations = [];
     this.waypoints = [];
-    this.snacks = WalkController.calculateSnacks(this.locations);
+    this.origin = undefined;
+    this.destination = undefined;
+    this.snacks = 0;
   }
 
   static calculateSnacks(locations) {
@@ -42,30 +43,40 @@ class WalkController {
     return this.walkService.get({
       id: this.id
     }).$promise.then((result) => {
-      const makeLocation = (location) => {
+      const makeLatLngLiteral = (location) => {
         return {
           lat: location.latitude,
           lng: location.longitude
         }
       };
       this.name = result.name;
-      this.locations = result.locations;
-      this.snacks = WalkController.calculateSnacks(this.locations);
-      if (this.locations.length > 0) {
-        this.waypoints = this.locations.map((location) => {
-          return makeLocation(location);
+      this.snacks = WalkController.calculateSnacks(result.locations);
+      if (result.locations.length > 0) {
+        this.waypoints = result.locations.map((location) => {
+          return makeLatLngLiteral(location);
+        });
+        // LatLng object literals don't seem to work for markers (throws an
+        // exception trying to do .match() on it)
+        this.origin = [
+          result.locations[0].latitude,
+          result.locations[0].longitude
+        ];
+        this.destination = [
+          result.locations[result.locations.length - 1].latitude,
+          result.locations[result.locations.length - 1].longitude
+        ];
+        return this.ngMapProvider.getMap().then((map) => {
+          const bounds = new google.maps.LatLngBounds();
+          this.waypoints.forEach((waypoint) => {
+            bounds.extend(waypoint);
+          });
+          // this is hard to test. Given more time I'd find the right hook
+          setTimeout(() => {
+            map.fitBounds(bounds);
+          });
         });
       }
-      return this.ngMapProvider.getMap();
-    }).then((map) => {
-      const bounds = new google.maps.LatLngBounds();
-      this.waypoints.forEach((waypoint) => {
-        bounds.extend(waypoint);
-      });
-      // this is hard to test. Given more time I'd find the right hook
-      setTimeout(() => {
-        map.fitBounds(bounds);
-      });
+    }).then(() => {
       this.loaded = true;
     }).catch(() => {
       this.loaded = true;

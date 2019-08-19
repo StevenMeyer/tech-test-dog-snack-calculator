@@ -15,11 +15,25 @@
                  name="polyline"
                  ng-if="$ctrl.loaded && $ctrl.hasData"
                  geodesic="true"
-                 stroke-color="#FF0000"
+                 stroke-color="#5e519d"
                  stroke-opacity="1.0"
-                 stroke-weight="2"
+                 stroke-weight="3"
                  path="{{$ctrl.waypoints}}" >
           </shape>
+          <marker position="{{$ctrl.origin}}"
+                  title="Start"
+                  draggable="false"
+                  animation="Animation.DROP">
+          </marker>
+          <marker position="{{$ctrl.destination}}"
+                  title="Finish"
+                  label="{
+                    fontFamily: 'Material Icons',
+                    text: 'flag'
+                  }"
+                  draggable="false"
+                  animation="Animation.DROP">
+          </marker>
         </ng-map>
       </div>
     </div>
