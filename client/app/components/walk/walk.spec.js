@@ -5,23 +5,37 @@ import WalkTemplate from './walk.html';
 
 describe('Walk', () => {
   let $rootScope, $state, $location, $httpBackend, makeController;
-  let $scope;
 
-  beforeEach(window.module(WalkModule));
-  beforeEach(inject(($componentController, _$rootScope_, _$location_, _$state_, _$httpBackend_) => {
+  beforeEach(window.module(WalkModule, function ($provide) {
+    $provide.provider('MockNgMap', function () {
+      this.$get = function () {
+        return {
+          getMap: () => {
+            return new Promise.resolve();
+          }
+        }
+      }
+    });
+
+    $provide.provider('NgMap', function () {
+      this.$get = function (MockNgMap) {
+        return {
+          getMap: () => {
+            return MockNgMap.getMap();
+          }
+        }
+      }
+    })
+  }));
+  beforeEach(inject(($componentController, _$rootScope_, _$location_, _$state_, _$httpBackend_, NgMap) => {
     $httpBackend = _$httpBackend_;
     $location = _$location_;
     $rootScope = _$rootScope_;
     $state = _$state_;
-    $scope = {
-      $parent: {
-        $resolve: {}
-      }
-    };
     makeController = () => {
-      const scope = Object.assign({}, $rootScope.$new(), $scope);
       return $componentController('walk', {
-        $scope: scope
+        $scope: $rootScope.$new(),
+        NgMap
       });
     };
 
@@ -70,30 +84,44 @@ describe('Walk', () => {
 
   describe('Controller', () => {
     // controller specs
-    it('has an ID set from the route params', () => {
-      $scope.$parent.$resolve.id = '42';
-      let controller = makeController();
-      expect(controller.id).to.eq('42');
-    });
-
-    it('has a name set from the route params', () => {
-      $scope.$parent.$resolve.name = 'Walk Your Socks Off';
-      let controller = makeController();
-      expect(controller.name).to.eq('Walk Your Socks Off');
-    });
-
     it('has a snack count (set to 0 initially)', () => {
       let controller = makeController();
       expect(controller.snacks).to.eq(0);
     });
 
-    it('populates the snacks from the server', () => {
-      $scope.$parent.$resolve.id = '42';
+    it('populates the walk name from the server', () => {
       let controller = makeController();
+      controller.id = '42';
+      const promise = new Promise((resolve) => {
+        controller.$onInit().then(resolve);
+      }).then(() => {
+        expect(controller.name).to.eq('Walk A');
+      });
+      $httpBackend.flush();
+      return promise;
+    });
+
+    it('populates the snacks from the server', () => {
+      let controller = makeController();
+      controller.id = '42';
       const promise = new Promise((resolve) => {
         controller.$onInit().then(resolve);
       }).then(() => {
         expect(controller.snacks).to.eq(5);
+      });
+      $httpBackend.flush();
+      return promise;
+    });
+
+    it('populates the waypoints from the server', () => {
+      let controller = makeController();
+      controller.id = '42';
+      const promise = new Promise((resolve) => {
+        controller.$onInit().then(resolve);
+      }).then(() => {
+        expect(controller.waypoints.length).to.eq(5);
+        expect(controller.waypoints).to.have.deep.property('[0].lat', 51.51973438454002);
+        expect(controller.waypoints).to.have.deep.property('[0].lng', -0.1222349703313059);
       });
       $httpBackend.flush();
       return promise;
