@@ -1,9 +1,10 @@
 <main class="walk">
   <h1>{{$ctrl.name}}</h1>
+  <a class="back" ui-sref="home"><i class="material-icons" aria-hidden="true">arrow_back</i> Back to route list</a>
   <p ng-show="!$ctrl.loaded">Loading; please wait&hellip;</p>
   <p ng-show="$ctrl.loaded && !$ctrl.hasData">There is no route information</p>
   <p ng-show="$ctrl.loaded && !$ctrl.hasData">Something probably went wrong. Please try again, later</p>
-  <section ng-show="$ctrl.hasData">
+  <section>
     <dl>
       <dt>Number of snacks</dt><dd>{{$ctrl.snacks}}</dd>
     </dl>

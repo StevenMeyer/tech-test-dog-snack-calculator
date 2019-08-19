@@ -2,7 +2,25 @@
 
 .walk {
   background-color: #ffffff;
-  padding: 0 1rem;
+  padding: 0 1rem 1rem;
+
+  .back {
+    border: 0.1rem solid $fontColour;
+    border-radius: 1rem;
+    color: $fontColour;
+    display: inline-block;
+    line-height: 3rem;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+    text-decoration: none;
+
+    &, i {
+      font-size: 1rem;
+    }
+    i {
+      vertical-align: text-bottom;
+    }
+  }
 
   dt, dd {
     background-color: $heroPrimary;

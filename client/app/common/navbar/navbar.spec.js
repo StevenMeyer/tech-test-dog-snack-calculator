@@ -25,10 +25,6 @@ describe('Navbar', () => {
         $scope: $rootScope.$new()
       });
     });
-
-    it('has a name property', () => { // erase if removing this.name from the controller
-      expect(controller).to.have.property('name');
-    });
   });
 
   describe('View', () => {
@@ -42,7 +38,7 @@ describe('Navbar', () => {
     });
 
     it('has name in template', () => {
-      expect(template.find('h1').find('a').html()).to.eq('navbar');
+      expect(template.find('h3').find('a').html()).to.eq('Dog Snack Calculator');
     });
 
   });

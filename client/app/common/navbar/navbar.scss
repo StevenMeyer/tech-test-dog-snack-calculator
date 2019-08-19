@@ -1,11 +1,28 @@
 @import '../common';
 
 .navbar {
-  height: 6.5rem;
-  background-color: $primaryColor;
-  padding: 1rem;
+  background-color:#ffffff;
+  margin: 0 -2rem;
+  padding: 0 2rem;
 
-  .nav-links,
+  h3 {
+    display: inline-block;
+    font-size: 1rem;
+    a {
+      color: $fontColour;
+      text-decoration: none;
+    }
+
+    &::after {
+      color: $heroPrimary;
+      content: 'pets';
+      font-family: 'Material Icons';
+      font-size: 1.5rem;
+      margin-left: 0.3rem;
+      vertical-align: text-bottom;
+    }
+  }
+
   .logo {
     display: inline-block;
   }
