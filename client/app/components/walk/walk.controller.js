@@ -3,13 +3,11 @@ class WalkController {
     return this.locations.length > 0;
   }
 
-  constructor($scope, walkService, NgMap) {
-    // using $scope like this doesn't seem right and given more time I'd figure
-    // out the proper way to do this
-    // TODO: get these bound properties without reaching out of our isolated
-    //  scope
-    this.id = $scope.$parent.$resolve.id;
-    this.name = $scope.$parent.$resolve.name;
+  constructor(walkService, NgMap) {
+    // id and name will be set automatically from the bindings by the time
+    // $onInit() is called
+    this.id = undefined;
+    this.name = undefined;
     this.centre = {
       latitude: 51.5174521,
       longitude: -0.121618

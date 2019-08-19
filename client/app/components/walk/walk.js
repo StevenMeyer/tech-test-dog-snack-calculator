@@ -15,10 +15,6 @@ let walkModule = angular.module('walk', [
 
   $urlRouterProvider.otherwise('/');
   $stateProvider.state('walk', {
-    bindings: {
-      id: '@',
-      name: '@'
-    },
     component: 'walk',
     params: {
       name: ''

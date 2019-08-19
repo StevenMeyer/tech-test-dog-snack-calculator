@@ -3,9 +3,12 @@ import controller from './walk.controller';
 import './walk.scss';
 
 let walkComponent = {
-  bindings: {},
+  bindings: {
+    id: '@',
+    name: '@'
+  },
   template,
-  controller: ['$scope', 'WalkService', 'NgMap', controller]
+  controller: ['WalkService', 'NgMap', controller]
 };
 
 export default walkComponent;
